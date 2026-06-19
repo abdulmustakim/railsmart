@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RailSmart | Confirm Seat & SmartCoach Finder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-orb orb-one"></div>
+  <div class="bg-orb orb-two"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">RS</div>
+      <div>
+        <h1>RailSmart</h1>
+        <p>Confirm Seat & SmartCoach Finder</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#search">Search</a>
+      <a href="#coach">SmartCoach</a>
+      <a href="#alerts">Alerts</a>
+      <a href="#dashboard">Dashboard</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="pill" id="apiMode">Static demo mode · HTML CSS JS only</span>
+        <h2>Find confirmed train seats and the best coach before you travel.</h2>
+        <p>
+          Search trains that have reserved seats available only. Then compare coach crowd level,
+          approximate human count, mobile signal strength, cleanliness, and safety score.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#search">Start Search</a>
+          <a class="btn ghost" href="#coach">View Coach Intelligence</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="route-line">
+          <span>HWH</span><div></div><span>NDLS</span>
+        </div>
+        <h3>Best Match</h3>
+        <p class="muted">Howrah Rajdhani Express</p>
+        <div class="metric-row">
+          <div><b>8</b><span>Seats</span></div>
+          <div><b>B2</b><span>Best Coach</span></div>
+          <div><b>91%</b><span>Comfort</span></div>
+        </div>
+        <div class="signal-bars">
+          <span style="height: 45%"></span>
+          <span style="height: 65%"></span>
+          <span style="height: 82%"></span>
+          <span style="height: 100%"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="search">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Feature 1</span>
+          <h2>Confirmed Seat Search</h2>
+        </div>
+        <p>Waiting List, RAC and Not Available trains are automatically hidden.</p>
+      </div>
+
+      <form id="searchForm" class="grid-form">
+        <label>
+          From Station
+          <input list="stationList" id="from" value="HWH" placeholder="Example: HWH" required />
+        </label>
+        <label>
+          To Station
+          <input list="stationList" id="to" value="NDLS" placeholder="Example: NDLS" required />
+        </label>
+        <label>
+          Journey Date
+          <input type="date" id="date" value="2026-06-22" required />
+        </label>
+        <label>
+          Class
+          <select id="travelClass">
+            <option value="SL">Sleeper - SL</option>
+            <option value="3A" selected>AC 3 Tier - 3A</option>
+            <option value="2A">AC 2 Tier - 2A</option>
+            <option value="1A">AC First Class - 1A</option>
+          </select>
+        </label>
+        <label>
+          Quota
+          <select id="quota">
+            <option value="GN">General</option>
+            <option value="TQ">Tatkal</option>
+            <option value="LD">Ladies</option>
+          </select>
+        </label>
+        <label>
+          Passengers
+          <input type="number" id="passengers" value="1" min="1" max="10" />
+        </label>
+        <button class="btn primary full" type="submit">Search Available Seats</button>
+      </form>
+      <datalist id="stationList"></datalist>
+
+      <div id="searchSummary" class="summary-card hidden"></div>
+      <div id="results" class="results-grid"></div>
+      <div id="nearby" class="nearby-list"></div>
+    </section>
+
+    <section class="panel" id="flexible">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Feature 2</span>
+          <h2>Flexible Date Finder</h2>
+        </div>
+        <p>Find the nearest date with confirmed seats.</p>
+      </div>
+      <div id="flexDates" class="date-strip"></div>
+    </section>
+
+    <section class="panel" id="coach">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Feature 3</span>
+          <h2>SmartCoach Intelligence</h2>
+        </div>
+        <p>Compare coach crowd, human count, phone signal, cleanliness and safety.</p>
+      </div>
+
+      <div class="coach-toolbar">
+        <label>
+          Train Number
+          <input id="coachTrain" value="12301" placeholder="Example: 12301" />
+        </label>
+        <button class="btn secondary" id="loadCoach">Load Coach Data</button>
+      </div>
+      <div id="bestCoach" class="best-coach hidden"></div>
+      <div id="coachCards" class="coach-grid"></div>
+    </section>
+
+    <section class="panel two-col" id="alerts">
+      <div>
+        <div class="section-head compact">
+          <div>
+            <span class="eyebrow">Feature 4</span>
+            <h2>Seat Alert</h2>
+          </div>
+        </div>
+        <form id="alertForm" class="stack-form">
+          <label>Your Name <input id="alertName" value="Abdul" /></label>
+          <label>Email <input id="alertEmail" type="email" placeholder="your@email.com" /></label>
+          <label>From <input id="alertFrom" value="HWH" /></label>
+          <label>To <input id="alertTo" value="NDLS" /></label>
+          <label>Date <input id="alertDate" type="date" value="2026-06-22" /></label>
+          <label>Class <input id="alertClass" value="3A" /></label>
+          <label>Minimum Seats <input id="alertSeats" type="number" value="1" min="1" /></label>
+          <button class="btn primary" type="submit">Save Alert</button>
+        </form>
+        <p id="alertMsg" class="message"></p>
+      </div>
+
+      <div>
+        <div class="section-head compact">
+          <div>
+            <span class="eyebrow">Feature 5</span>
+            <h2>User Coach Report</h2>
+          </div>
+        </div>
+        <form id="reportForm" class="stack-form">
+          <label>Train Number <input id="reportTrain" value="12301" /></label>
+          <label>Coach <input id="reportCoach" value="B2" /></label>
+          <label>Approx. Human Count <input id="humanCount" type="number" value="30" min="0" /></label>
+          <label>Crowd Level
+            <select id="crowd">
+              <option>Low</option><option>Medium</option><option>High</option><option>Very High</option>
+            </select>
+          </label>
+          <label>Cleanliness Score <input id="cleanliness" type="number" value="85" min="0" max="100" /></label>
+          <label>Safety Score <input id="safety" type="number" value="90" min="0" max="100" /></label>
+          <label>Notes <textarea id="notes" rows="3" placeholder="Example: Less crowd near middle coach"></textarea></label>
+          <button class="btn secondary" type="submit">Submit Report</button>
+        </form>
+        <p id="reportMsg" class="message"></p>
+      </div>
+    </section>
+
+    <section class="panel" id="dashboard">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Feature 6</span>
+          <h2>Dashboard</h2>
+        </div>
+        <button class="btn ghost" id="refreshDashboard">Refresh</button>
+      </div>
+      <div id="dashboardCards" class="dashboard-grid"></div>
+      <div id="dashboardLists" class="dashboard-lists"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>RailSmart prototype by Abdul Mustakim Molla. Pure HTML, CSS and JavaScript static prototype. Demo data is used for offline working.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
